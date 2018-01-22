@@ -1,0 +1,82 @@
+<hr>
+Tabla / Form
+<form name="itemForm">
+  <div>
+    <label>porcentaje:
+      <input type="text" [(ngModel)]="porcentajeTotal" name="porcentaje" pattern="^[0-9]+([.][0-9]+)?$" #porcentaje="ngModel">
+      <div *ngIf="porcentaje.errors && (porcentaje.dirty || porcentaje.touched)">
+        <div [hidden]="!porcentaje.errors.pattern">
+          Debe ser entero o decimal
+        </div>
+      </div>             
+    </label>
+  </div>    
+  <div>
+    <label>keypress1:
+        <input type="text" name="keypresstest1" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57))"/>
+        (no permite arrows ni backspace)
+    </label>
+  </div>    
+  <div>
+    <label>keypress2:
+        <input type="text" name="keypresstest2" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 0)"/>
+    </label>
+  </div>  
+  <hr>
+  <button type="button" (click)="agregarItemForm()">
+    Agregar
+  </button>
+  <table>
+    <thead>
+        <tr>
+          <th>id</th>
+          <th>Valor</th>
+          <th>Monto</th>
+          <th></th>
+        </tr>
+    </thead>
+    <tr *ngFor="let item of itemsForm; let i = index">
+      <td>{{item.id}}</td>
+      <td>
+        <input type="text" [(ngModel)]="item.valor" name="valor-{{item.id}}" 
+          #valor="ngModel"/>
+      </td>
+      <td>
+        <input required type="text" [(ngModel)]="item.monto" name="monto-{{item.id}}" pattern="^[0-9]+([.][0-9]+)?$" 
+          #monto="ngModel"/>
+        <div *ngIf="monto.errors && (monto.dirty || monto.touched)">
+          <div [hidden]="!monto.errors.pattern">
+            Debe ser entero o decimal
+          </div>
+        </div>             
+      </td>
+      <td><input type="button" (click)="eliminarItemForm(i)"/> </td>
+    </tr>
+  </table>
+</form>
+<!--
+<hr>
+Tabla 
+<button type="button" class="btn btn-primary" (click)="agregarItem()">
+  Agregar
+</button>
+<table>
+  <thead>
+      <tr>
+        <th>id</th>
+        <th>Valor</th>
+        <th>Monto</th>
+        <th></th>
+      </tr>
+  </thead>
+  <tr *ngFor="let item of items; let i = index">
+    <td>{{item.id}}</td>
+    <td><input type="text" [(ngModel)]="item.valor" name="valor-{{item.id}}"></td>
+    <td><input type="text" [(ngModel)]="item.monto" name="monto-{{item.id}}"></td>
+    <td><input type="button" (click)="eliminarItem(i)"/> </td>
+  </tr>
+</table>
+-->
+
+
+
